@@ -1,0 +1,3 @@
+# Dynamic Body Type fundamentals
+
+The **Dynamic** **Body Type** is the default Body Type for a **Rigidbody** 2D, because it is the most common Body Type for things that need to move and is designed to move under simulation. All Rigidbody 2D properties are available with this Body Type, such as finite mass and drag, and is affected by gravity and forces. A Dynamic body will collide with every other Body Type, and is the most interactive of Body Types. It’s also the most performance-expensive Body Type, because of its dynamic nature and interactivity with everything around it.
