@@ -2,12 +2,10 @@
 
 ## Source
 
-All content extracted from local Unity 6000.3.9f1 documentation:
-`D:/Projects/Skill creation/ManualMD/en/Manual/`
+All content extracted from local Unity 6000.3.9f1 documentation and stored in `reference/`.
 
 ## Files Analyzed
 
-- `class-ParticleSystem.md` — Class Particlesystem
-- `ParticleSystemOverview.md` — Particlesystemoverview
-- `VFXGraph.md` — Vfxgraph
-- `ParticleSystems.md` — Particlesystems
+- `reference/class-ParticleSystem.md` — Class Particlesystem
+- `reference/VFXGraph.md` — Vfxgraph
+- `reference/ParticleSystems.md` — Particlesystems

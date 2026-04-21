@@ -3,26 +3,26 @@
 ## Source
 
 All content extracted from local Unity 6000.3.9f1 documentation:
-`D:/Projects/Skill creation/ManualMD/en/Manual/`
+`skill/reference/`
 
-## Files Analyzed
+## Files
 
 ### Cinemachine
-- `com.unity.cinemachine.md` — Cinemachine package overview (CM 3.1.6 for Unity 6000.3)
-- `pack-keys.md` — Keyword mappings for Cinemachine concepts
+- `skill/reference/com.unity.cinemachine.md` — Cinemachine package overview (CM 3.1.6 for Unity 6000.3)
+- `skill/reference/pack-keys.md` — Keyword mappings for Cinemachine concepts
 
 ### Timeline
-- `com.unity.timeline.md` — Timeline package overview (1.8.12 for Unity 6000.3)
-- `pack-keys.md` — Keyword mappings for Timeline concepts
+- `skill/reference/com.unity.timeline.md` — Timeline package overview (1.8.12 for Unity 6000.3)
+- `skill/reference/pack-keys.md` — Keyword mappings for Timeline concepts
 
 ### Camera Related
-- `cameras-overlay.md` — Camera selection and controls
-- `control-camera.md` — Camera system documentation
-- `urp/pixel-cinemachine.md` — 2D Pixel Perfect + Cinemachine integration
+- `skill/reference/cameras-overlay.md` — Camera selection and controls
+- `skill/reference/control-camera.md` — Camera system documentation
+- `skill/reference/urp/pixel-cinemachine.md` — 2D Pixel Perfect + Cinemachine integration
 
 ### Features
-- `GameplayStorytellingFeature.md` — Storytelling with Timeline and Cinemachine
-- `CharacterAnimationFeature.md` — Animation and camera integration
+- `skill/reference/GameplayStorytellingFeature.md` — Storytelling with Timeline and Cinemachine
+- `skill/reference/CharacterAnimationFeature.md` — Animation and camera integration
 
 ## Key Concepts
 

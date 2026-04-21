@@ -233,7 +233,7 @@ When asked about cameras, Timeline, or cinematics:
 1. **Identify type**: Virtual camera, Timeline sequence, camera transition
 2. **Provide Unity 6000 Cinemachine 3 patterns** (not legacy CM2)
 3. **Include C# code** with correct API
-4. **Reference**: `ManualMD/en/Manual/com.unity.cinemachine.md`, `com.unity.timeline.md`
+4. **Reference**: `skill/reference/com.unity.cinemachine.md`, `com.unity.timeline.md`
 
 Example response:
 ```
