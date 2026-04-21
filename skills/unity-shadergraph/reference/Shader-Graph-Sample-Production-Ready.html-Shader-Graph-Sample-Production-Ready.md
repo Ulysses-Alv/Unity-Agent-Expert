@@ -1,0 +1,19 @@
+# Production Ready Shaders sample | Shader Graph | 17.6.0
+
+Source: [Original](https://docs.unity3d.com/Packages/com.unity.shadergraph@17.6/manual/Shader-Graph-Sample-Production-Ready.html)
+
+# Production Ready Shaders sample
+
+The Shader Graph Production Ready Shaders sample is a collection of Shader Graph shader assets that are ready to be used out of the box or modified to suit your needs. You can take them apart and learn from them, or just drop them directly into your project and use them as they are. The sample includes the Shader Graph versions of the HDRP and URP Lit shaders. It also includes a step-by-step tutorial for how to combine several of the shaders to create a forest stream environment.
+
+| Topic | Description |
+| --- | --- |
+| **[Lit shaders](Shader-Graph-Sample-Production-Ready-Lit.html)** | Introduces Shader Graph versions of the HDRP and URP Lit shaders. Users often want to modify the Lit shaders but struggle because they’re written in code. Now you can use these instead of starting from scratch. |
+| **[Decal shaders](Shader-Graph-Sample-Production-Ready-Decal.html)** | Introduces shaders that allow you to enhance and add variety to your environment. Examples include running water, wetness, water caustics, and material projection. |
+| **[Detail shaders](Shader-Graph-Sample-Production-Ready-Detail.html)** | Introduces shaders that demonstrate how to create efficient [terrain details](https://docs.unity3d.com/Manual/terrain-Grass.html) that render fast and use less texture memory. Examples include clover, ferns, grass, nettle, and pebbles. |
+| **[Rock](Shader-Graph-Sample-Production-Ready-Rock.html)** | A robust, modular rock shader that includes base textures, macro and micro detail, moss projection, and weather effects. |
+| **[Water](Shader-Graph-Sample-Production-Ready-Water.html)** | Water shaders for ponds, flowing streams, lakes, and waterfalls. These include depth fog, surface ripples, flow mapping, refraction and surface foam. |
+| **[Post-Process](Shader-Graph-Sample-Production-Ready-Post.html)** | Shaders to add post-processing effects to the scene, including edge detection, half tone, rain on the lens, an underwater look, and VHS video tape image degradation. |
+| **[Weather](Shader-Graph-Sample-Production-Ready-Weather.html)** | Weather effects including rain drops, rain drips, procedural puddles, puddle ripples, and snow. |
+| **[Miscellaneous](Shader-Graph-Sample-Production-Ready-Misc.html)** | A couple of additional shaders - volumetric ice, and level blockout shader. |
+| **[Forest Stream Construction Tutorial](Shader-Graph-Sample-Production-Ready-Tutorial.html)** | A tutorial that describes how to combine multiple assets from this sample to create a forest stream. |

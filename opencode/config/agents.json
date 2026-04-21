@@ -3,7 +3,7 @@
     "description": "Unity 6000.3 LTS Expert Orchestrator. Detects domain and delegates to specialized sub-agents.",
     "mode": "primary",
     "model": "opencode-go/minimax-m2.7",
-    "prompt": "{file:./prompts/unity/unity-6000-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-6000-expert.md}",
     "tools": {
       "bash": true,
       "delegate": true,
@@ -28,7 +28,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/mimo-v2-pro",
-    "prompt": "{file:./prompts/unity/unity-graphics-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-graphics-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -40,7 +40,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/minimax-m2.7",
-    "prompt": "{file:./prompts/unity/unity-2d-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-2d-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -52,7 +52,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/qwen3.6-plus",
-    "prompt": "{file:./prompts/unity/unity-physics-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-physics-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -64,7 +64,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/qwen3.6-plus",
-    "prompt": "{file:./prompts/unity/unity-scripting-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-scripting-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -76,7 +76,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/mimo-v2-pro",
-    "prompt": "{file:./prompts/unity/unity-animation-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-animation-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -88,7 +88,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/minimax-m2.7",
-    "prompt": "{file:./prompts/unity/unity-audio-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-audio-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -100,7 +100,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/minimax-m2.7",
-    "prompt": "{file:./prompts/unity/unity-editor-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-editor-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -112,7 +112,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/qwen3.6-plus",
-    "prompt": "{file:./prompts/unity/unity-performance-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-performance-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -124,7 +124,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/minimax-m2.7",
-    "prompt": "{file:./prompts/unity/unity-build-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-build-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -136,7 +136,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/mimo-v2-pro",
-    "prompt": "{file:./prompts/unity/unity-vfx-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-vfx-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -148,7 +148,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/minimax-m2.7",
-    "prompt": "{file:./prompts/unity/unity-input-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-input-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -160,7 +160,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/qwen3.6-plus",
-    "prompt": "{file:./prompts/unity/unity-xr-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-xr-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -172,7 +172,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/mimo-v2-pro",
-    "prompt": "{file:./prompts/unity/unity-ui-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-ui-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -184,7 +184,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/mimo-v2-pro",
-    "prompt": "{file:./prompts/unity/unity-cinemachine-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-cinemachine-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -196,7 +196,7 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/qwen3.5-plus",
-    "prompt": "{file:./prompts/unity/unity-addressables-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-addressables-expert.md}",
     "tools": {
       "bash": true,
       "read": true,
@@ -208,7 +208,19 @@
     "hidden": true,
     "mode": "subagent",
     "model": "opencode-go/minimax-m2.7",
-    "prompt": "{file:./prompts/unity/unity-packages-expert.md}",
+    "prompt": "{file:../prompts/unity/unity-packages-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-shadergraph-expert": {
+    "description": "Unity 6000.3 LTS Shader Graph expert. Shader graphs, nodes, Master Stack, sub-graphs, keywords.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/mimo-v2-pro",
+    "prompt": "{file:../prompts/unity/unity-shadergraph-expert.md}",
     "tools": {
       "bash": true,
       "read": true,

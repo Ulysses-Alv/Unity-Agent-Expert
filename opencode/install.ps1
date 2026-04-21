@@ -1,10 +1,11 @@
 # Unity-Expert OpenCode Installer
 # Run this after cloning the repo to install Unity agents into your OpenCode config
-# Usage: .\install.ps1 [-DryRun] [-Uninstall]
+# Usage: .\install.ps1 [-DryRun] [-Uninstall] [-Provider <provider>]
 
 param(
     [switch]$DryRun,
-    [switch]$Uninstall
+    [switch]$Uninstall,
+    [string]$Provider = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -16,6 +17,7 @@ $PROMPTS_TARGET = "$env:USERPROFILE\.config\opencode\prompts\unity"
 $SKILLS_SOURCE = Join-Path $PSScriptRoot "..\skills"
 $SKILLS_TARGET = "$env:USERPROFILE\.config\opencode\skills\unity-6000"
 $AGENTS_CONFIG = Join-Path $PSScriptRoot "config\agents.json"
+$PRESETS_CONFIG = Join-Path $PSScriptRoot "config\presets.json"
 
 function Write-Banner {
     Write-Host ""
@@ -40,6 +42,13 @@ function Test-Prerequisites {
         exit 1
     }
     Write-Host "[OK] Found agents.json" -ForegroundColor Green
+
+    # Check presets.json exists
+    if (-not (Test-Path $PRESETS_CONFIG)) {
+        Write-Host "[ERROR] presets.json not found at: $PRESETS_CONFIG" -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "[OK] Found presets.json" -ForegroundColor Green
 
     # Check prompts source exists
     if (-not (Test-Path $PROMPTS_SOURCE)) {
@@ -66,9 +75,136 @@ function Test-Prerequisites {
         Write-Host "[ERROR] agents.json is not valid JSON: $_" -ForegroundColor Red
         exit 1
     }
+
+    # Validate presets.json is valid JSON
+    try {
+        $null = Get-Content $PRESETS_CONFIG -Raw | ConvertFrom-Json
+        Write-Host "[OK] presets.json is valid JSON" -ForegroundColor Green
+    } catch {
+        Write-Host "[ERROR] presets.json is not valid JSON: $_" -ForegroundColor Red
+        exit 1
+    }
+}
+
+function Select-Provider {
+    param(
+        [string]$RequestedProvider
+    )
+
+    $providers = @(
+        @{ Name = "opencode"; Label = "OpenCode Models"; Default = $true }
+        @{ Name = "claude"; Label = "Claude Models"; Default = $false }
+        @{ Name = "gpt"; Label = "GPT Models"; Default = $false }
+        @{ Name = "gemini"; Label = "Gemini Models"; Default = $false }
+        @{ Name = "custom"; Label = "User-defined models"; Default = $false }
+    )
+
+    $selectedProvider = ""
+
+    if ($RequestedProvider -ne "") {
+        # Validate requested provider
+        $validNames = $providers | ForEach-Object { $_.Name }
+        if ($RequestedProvider -in $validNames) {
+            $selectedProvider = $RequestedProvider
+        } else {
+            Write-Host "[WARN] Provider '$RequestedProvider' not recognized." -ForegroundColor Yellow
+            Write-Host "       Falling back to 'opencode'." -ForegroundColor Yellow
+            $selectedProvider = "opencode"
+        }
+    } else {
+        # Show provider selection menu
+        Write-Host "Select model provider:" -ForegroundColor Yellow
+        $i = 1
+        foreach ($p in $providers) {
+            $defaultMark = ""
+            if ($p.Default) { $defaultMark = " (default)" }
+            Write-Host "  [$i] $($p.Name) - $($p.Label)$defaultMark" -ForegroundColor White
+            $i++
+        }
+        Write-Host ""
+
+        $choice = Read-Host "Enter selection (1-5) or provider name"
+        $choice = $choice.Trim().ToLower()
+
+        # Try to match by number
+        $number = 0
+        if ([int]::TryParse($choice, [ref]$number)) {
+            if ($number -ge 1 -and $number -le $providers.Count) {
+                $selectedProvider = $providers[$number - 1].Name
+            } else {
+                Write-Host "[WARN] Invalid selection. Using 'opencode'." -ForegroundColor Yellow
+                $selectedProvider = "opencode"
+            }
+        } else {
+            # Try to match by name
+            $validNames = $providers | ForEach-Object { $_.Name }
+            if ($choice -in $validNames) {
+                $selectedProvider = $choice
+            } else {
+                Write-Host "[WARN] Provider '$choice' not recognized." -ForegroundColor Yellow
+                Write-Host "       Falling back to 'opencode'." -ForegroundColor Yellow
+                $selectedProvider = "opencode"
+            }
+        }
+    }
+
+    return $selectedProvider
+}
+
+function Get-ModelAssignments {
+    param(
+        [string]$Provider,
+        [PSCustomObject]$AgentsToAdd
+    )
+
+    $presets = Get-Content $PRESETS_CONFIG -Raw | ConvertFrom-Json
+    $assignments = @{}
+
+    # Check if provider exists in presets
+    if ($presets.PSObject.Properties.Name -notcontains $Provider) {
+        Write-Host "[WARN] Provider '$Provider' not found in presets.json." -ForegroundColor Yellow
+        Write-Host "       Falling back to 'opencode' preset." -ForegroundColor Yellow
+        $Provider = "opencode"
+    }
+
+    # Get the provider preset
+    $providerPreset = $presets.$Provider
+
+    # Check if it has models property (new nested structure)
+    $modelLookup = $null
+    if ($providerPreset.PSObject.Properties.Name -contains "models") {
+        $modelLookup = $providerPreset.models
+    } else {
+        # Fallback to old flat structure (direct property access)
+        $modelLookup = $providerPreset
+    }
+
+    # Warn for custom provider
+    if ($Provider -eq "custom") {
+        Write-Host "[WARN] Using 'custom' provider." -ForegroundColor Yellow
+        Write-Host "       Models must be configured manually in presets.json under 'custom.models'." -ForegroundColor Yellow
+        Write-Host "       Agents without model assignments will use agents.json defaults." -ForegroundColor Yellow
+    }
+
+    Write-Host "[PRESET] Using provider: $Provider" -ForegroundColor Cyan
+
+    foreach ($agentName in $AgentsToAdd.PSObject.Properties.Name) {
+        $modelFromPreset = $null
+        if ($modelLookup.PSObject.Properties.Name -contains $agentName) {
+            $modelFromPreset = $modelLookup.$agentName
+        }
+
+        $assignments[$agentName] = $modelFromPreset
+    }
+
+    return $assignments
 }
 
 function Install-Agents {
+    param(
+        [string]$Provider
+    )
+
     Write-Host ""
     Write-Host "Installing Unity agents..." -ForegroundColor Yellow
 
@@ -78,6 +214,9 @@ function Install-Agents {
 
     # Read agents to add
     $agentsToAdd = Get-Content $AGENTS_CONFIG -Raw | ConvertFrom-Json
+
+    # Get model assignments from presets
+    $modelAssignments = Get-ModelAssignments -Provider $Provider -AgentsToAdd $agentsToAdd
 
     # Check for existing Unity agents (don't duplicate)
     $existingUnityAgents = @()
@@ -95,11 +234,22 @@ function Install-Agents {
             continue
         }
 
-        # Add agent to config
-        $agentEntry = $agentsToAdd.$agentName
+        # Build agent entry from agents.json
+        $agentEntry = $agentsToAdd.$agentName | Select-Object *
+
+        # Override model from preset if available
+        $presetModel = $modelAssignments[$agentName]
+        if ($presetModel -and $presetModel -ne "") {
+            $agentEntry.model = $presetModel
+            Write-Host "  [ADD] $agentName (model: $presetModel)" -ForegroundColor Green
+        } else {
+            # Fall back to agents.json default model
+            $defaultModel = $agentsToAdd.$agentName.model
+            Write-Host "  [ADD] $agentName (model: $defaultModel [preset default])" -ForegroundColor Green
+        }
+
         $config.agent | Add-Member -NotePropertyName $agentName -NotePropertyValue $agentEntry -Force
         $added++
-        Write-Host "  [ADD] $agentName" -ForegroundColor Green
     }
 
     if ($added -eq 0) {
@@ -197,12 +347,17 @@ function Install-Skills {
 }
 
 function Show-Status {
+    param(
+        [string]$Provider
+    )
+
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host " Installation Complete!" -ForegroundColor Green
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "Installed Unity agents: unity-6000-expert (orchestrator) + 16 sub-agents" -ForegroundColor White
+    Write-Host "Model provider: $Provider" -ForegroundColor White
     Write-Host "Prompts location: $PROMPTS_TARGET" -ForegroundColor White
     Write-Host "Skills location: $SKILLS_TARGET" -ForegroundColor White
     Write-Host ""
@@ -210,6 +365,7 @@ function Show-Status {
     Write-Host ""
     Write-Host "To update after repo pull: re-run this script" -ForegroundColor Gray
     Write-Host "To preview changes: .\install.ps1 -DryRun" -ForegroundColor Gray
+    Write-Host "To use different provider: .\install.ps1 -Provider <provider>" -ForegroundColor Gray
 }
 
 # Main
@@ -222,7 +378,11 @@ if ($Uninstall) {
 }
 
 Test-Prerequisites
-Install-Agents
+
+# Select provider
+$selectedProvider = Select-Provider -RequestedProvider $Provider
+
+Install-Agents -Provider $selectedProvider
 Install-Prompts
 Install-Skills
-Show-Status
+Show-Status -Provider $selectedProvider
