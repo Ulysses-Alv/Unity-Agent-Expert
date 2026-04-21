@@ -1,6 +1,6 @@
 # Unity 6000.3 LTS Addressables — Reference Documentation
 
-Source: ManualMD/en/Manual/
+Source: `reference/` (local documentation)
 
 ## Files Analyzed
 

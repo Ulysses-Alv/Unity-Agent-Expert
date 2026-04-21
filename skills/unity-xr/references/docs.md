@@ -3,12 +3,8 @@
 ## Source
 
 All content extracted from local Unity 6000.3.9f1 documentation:
-`D:/Projects/Skill creation/ManualMD/en/Manual/`
+`skills/unity-xr/reference/`
 
-## Files Analyzed
+## Files Copied
 
 - `XR.md` — Xr
-- `XRInput.md` — Xrinput
-- `class-ARSession.md` — Class Arsession
-- `XRInteraction.md` — Xrinteraction
-- `VRDevices.md` — Vrdevices

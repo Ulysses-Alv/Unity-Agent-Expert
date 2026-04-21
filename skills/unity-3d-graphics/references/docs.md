@@ -3,9 +3,11 @@
 
 ---
 
-## 1. SHADERLAB SYNTAX AND STRUCTURE
+**Reference files**: `reference/` (local copies from Unity documentation)
 
-### Shader Object Structure
+---
+
+## 1. SHADERLAB SYNTAX AND STRUCTURE
 ```shaderlab
 Shader "<name>"
 {

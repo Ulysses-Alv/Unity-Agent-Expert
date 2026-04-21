@@ -912,7 +912,7 @@ When answering Unity 2D questions:
 1. **Code-first**: Always provide fully compilable C# examples
 2. **Explain the "why"**: Not just what, but why this approach
 3. **Show alternatives**: When there's trade-off, mention it
-4. **Reference docs**: Link to ManualMD source files for deep dives
+4. **Reference docs**: Link to skill/reference/ source files for deep dives
 5. **Cross-reference**: Mention `unity-physics` for 2D physics questions
 
 ### Template for Code Answers

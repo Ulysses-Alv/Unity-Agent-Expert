@@ -3,20 +3,20 @@
 ## Source
 
 All content extracted from local Unity 6000.3.9f1 documentation:
-`D:/Projects/Skill creation/ManualMD/en/Manual/`
+`skills/unity-packages/reference/`
 
-## Files Analyzed
+## Files Copied
 
 ### Package Management
-- `upm.md` — Unity Package Manager overview
-- `upm-packages.md` — Working with packages
-- `upm-registry.md` — Package registries
-- `upm-scoped-registries.md` — Scoped registry configuration
+- `upm-overview.md` — Unity Package Manager overview
+- `upm-manifestPkg.md` — Working with packages
+- `upm-scoped.md` — Package registries
+- `upm-scoped-start.md` — Scoped registry configuration
 - `upm-assets.md` — Asset packages
 - `upm-git.md` — Git-based packages
 
 ### Package Development
-- `upm-create.md` — Creating custom packages
-- `upm-structure.md` — Package directory structure
-- `upm-manifest.md` — package.json manifest
-- `upm-asmdef.md` — Assembly definitions in packages
+- `upm-embed.md` — Creating custom packages
+- `upm-concepts.md` — Package directory structure
+- `upm-manifestPrj.md` — package.json manifest
+- `upm-api.md` — Assembly definitions in packages
