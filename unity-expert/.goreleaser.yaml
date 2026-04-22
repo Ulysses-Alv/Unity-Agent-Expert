@@ -1,5 +1,5 @@
 # goreleaser.yaml for unity-agent-expert
-# Build multiple binaries for different platforms
+version: 2
 
 project_name: unity-agent-expert
 
@@ -23,36 +23,16 @@ builds:
     ldflags:
       - -s -w
       - -X main.version={{.Version}}
-    hooks:
-      post:
-        # Rename .exe for Windows
-        - hook: rename
-          args:
-            - "{{.Binary}}"
-            - "{{.Binary}}.exe"
-          only:
-            windows: true
 
 archives:
   - id: default
     format: zip
-    files:
-      - README.md
-      - LICENSE
 
 checksum:
   name_template: checksums.txt
-
-snapshot:
-  name_template: "{{ incpatch .Version }}"
-  prerelease: auto
 
 release:
   github:
     owner: Ulysses-Alv
     name: Unity-Agent-Expert
   prerelease: false
-
-announce:
-  twitter:
-    disabled: true

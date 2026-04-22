@@ -11,7 +11,7 @@ AI agents specialized in Unity 6000.3 LTS development. Built on OpenCode with an
 curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash
 
 # Windows PowerShell
-irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/install.ps1 | iex
 ```
 
 This installs the `unity-agent-expert` CLI to `~/.local/bin` (Linux/macOS) or `%LOCALAPPDATA%\unity-agent-expert\bin` (Windows).
