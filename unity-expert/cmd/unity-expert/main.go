@@ -7,6 +7,7 @@ import (
 
 	"github.com/Ulysses-Alv/unity-expert/internal/cli"
 	"github.com/Ulysses-Alv/unity-expert/internal/install"
+	"github.com/Ulysses-Alv/unity-expert/internal/update"
 )
 
 // Version is injected at build time via -ldflags.
@@ -33,6 +34,8 @@ func main() {
 		err = cli.RunInstall(args)
 	case "sync":
 		err = cli.RunSync(args)
+	case "update":
+		err = cli.RunUpdate(args, version)
 	case "doctor":
 		err = cli.RunDoctor()
 	case "version":
@@ -63,6 +66,22 @@ func main() {
 			exitCode = 3
 		case *install.ApplyError:
 			exitCode = 4
+		case *update.GentleAIError:
+			// gentle-ai environment - not an error, just informational
+			fmt.Printf("%v\n", err)
+			os.Exit(0)
+		case *update.NetworkError:
+			exitCode = 1
+		case *update.RateLimitError:
+			exitCode = 1
+		case *update.AssetNotFoundError:
+			exitCode = 1
+		case *update.ReplaceError:
+			exitCode = 1
+		case *update.DownloadError:
+			exitCode = 1
+		case *update.ExtractError:
+			exitCode = 1
 		}
 		fmt.Fprintf(os.Stderr, "[ERROR] %v\n", err)
 		os.Exit(exitCode)

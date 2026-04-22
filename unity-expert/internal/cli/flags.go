@@ -21,6 +21,11 @@ type SyncOptions struct {
 	Force    bool
 }
 
+// UpdateOptions holds parsed flags for the update command.
+type UpdateOptions struct {
+	CheckOnly bool
+}
+
 var validProviders = map[string]bool{
 	"opencode": true,
 	"claude":   true,
@@ -104,6 +109,44 @@ func ParseSyncFlags(args []string) (SyncOptions, error) {
 		Provider: *provider,
 		DryRun:   *dryRun,
 		Force:    *force,
+	}, nil
+}
+
+// ParseUpdateFlags parses command-line flags for the update command.
+func ParseUpdateFlags(args []string) (UpdateOptions, error) {
+	// Check for help flag
+	for _, arg := range args {
+		if arg == "-h" || arg == "--help" {
+			printUpdateUsage()
+			return UpdateOptions{}, flag.ErrHelp
+		}
+	}
+
+	fs := flag.NewFlagSet("update", flag.ContinueOnError)
+	fs.Usage = func() {
+		fmt.Println("Usage: unity-agent-expert update [flags]")
+		fmt.Println("Flags:")
+		fs.PrintDefaults()
+	}
+
+	checkOnly := fs.Bool("check-only", false, "Check for updates without downloading")
+
+	// Also register -c as an alias for --check-only
+	// Since we can't easily add aliases, we manually handle -c in parsing
+
+	if err := fs.Parse(args); err != nil {
+		return UpdateOptions{}, fmt.Errorf("invalid flags: %w", err)
+	}
+
+	// Check for -c flag manually since flag package doesn't support aliases well
+	for _, arg := range args {
+		if arg == "-c" || arg == "--c" {
+			*checkOnly = true
+		}
+	}
+
+	return UpdateOptions{
+		CheckOnly: *checkOnly,
 	}, nil
 }
 

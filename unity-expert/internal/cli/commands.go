@@ -13,6 +13,7 @@ func PrintUsage() {
 	fmt.Println("Commands:")
 	fmt.Println("  install    Install Unity agents, prompts, and skills")
 	fmt.Println("  sync       Idempotently re-apply configuration")
+	fmt.Println("  update     Check for and install updates")
 	fmt.Println("  doctor     Check installation health")
 	fmt.Println("  version    Display version information")
 	fmt.Println()
@@ -62,6 +63,24 @@ func printDoctorUsage() {
 	fmt.Println("Exit codes:")
 	fmt.Println("  0   All checks passed")
 	fmt.Println("  1   One or more checks failed")
+}
+
+// printUpdateUsage prints detailed update command usage.
+func printUpdateUsage() {
+	fmt.Println("Usage: unity-agent-expert update [flags]")
+	fmt.Println()
+	fmt.Println("Checks GitHub for new releases and updates the binary if a newer version is available.")
+	fmt.Println()
+	fmt.Println("Flags:")
+	fmt.Println("  --check-only, -c   Check for updates without downloading or replacing the binary")
+	fmt.Println()
+	fmt.Println("Examples:")
+	fmt.Println("  unity-agent-expert update")
+	fmt.Println("  unity-agent-expert update --check-only")
+	fmt.Println()
+	fmt.Println("Exit codes:")
+	fmt.Println("  0   Success (updated, already up-to-date, or check-only)")
+	fmt.Println("  1   Error (network, API, permission, no asset)")
 }
 
 // RunInstall is the entry point for the install command.
