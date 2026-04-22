@@ -186,7 +186,7 @@ cd Unity-Agent-Expert
 If the install script modifies opencode.json, it automatically creates a backup:
 
 ```
-~/.config/opencode/opencode.json.backup.20260419XXXXXX
+~/.config/opencode/opencode.json.backup.YYYYMMDDXXXXXX
 ```
 
 ## Requirements
@@ -197,4 +197,4 @@ If the install script modifies opencode.json, it automatically creates a backup:
 
 ## License
 
-Apache 2.0
+MIT Licence
