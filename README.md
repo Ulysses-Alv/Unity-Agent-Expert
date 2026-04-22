@@ -252,7 +252,7 @@ MIT License
 
 ---
 
-**⚠️ Disclaimer: Everything was vibecodeado**
+**⚠️ Disclaimer: Everything was vibecoded**
 
 This project was built with AI-assisted coding (vibe coding). Every line, every decision, every architectural choice was made with AI agents — from the initial exploration to the final implementation.
 
@@ -264,5 +264,4 @@ If you want to learn how this was built, explore the git history. If you want to
 
 **Recommended reading:**
 - [gentle-ai/gentle-ai](https://github.com/Gentleman-Programming/gentle-ai) — inspiration for the bootstrapper + CLI architecture
-- [SDD Workflow](https://github.com/gentle-ai/gentle-ai/blob/main/AGENTS.md) — how to use AI agents for software development
-- [Agent Teams Lite](https://github.com/gentle-ai/agent-teams-lite) — the orchestration system used
+- [SDD Workflow]([https://github.com/gentle-ai/gentle-ai/blob/main/AGENTS.md](https://github.com/Gentleman-Programming/gentle-ai/blob/main/docs/opencode-profiles.md)) — how to use AI agents for software development
