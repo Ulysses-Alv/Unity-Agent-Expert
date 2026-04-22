@@ -1,6 +1,6 @@
 # Unity 6000.3 LTS Expert Agent System
 
-Sistema de agentes IA especializados en Unity 6000.3 LTS. Construido sobre OpenCode con arquitectura de orquestador + sub-agentes especializados.
+AI agents specialized in Unity 6000.3 LTS development. Built on OpenCode with an orchestrator + specialized sub-agents architecture.
 
 ## Quick Installation
 
@@ -14,36 +14,58 @@ curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main
 irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex
 ```
 
-### With flags
+### Installation Flags
+
+| Flag | Description |
+|------|-------------|
+| `--dry-run` / `-DryRun` | Preview what will be installed without making changes |
+| `--force` / `-Force` | Overwrite existing agents (default: skip if already installed) |
+| `--dev` / `-Dev` | Install development dependencies |
+| `--provider <name>` / `-Provider <name>` | Set model provider. Values: `opencode`, `claude`, `gpt`, `gemini`, `custom` |
+
+#### Provider Model Mapping
+
+| Provider | Models Used |
+|----------|-------------|
+| `opencode` | MiniMax M2.7 for general tasks; MiMo-V2-Pro for graphics/animation/VFX |
+| `claude` | Claude Sonnet 4 for all agents |
+| `gpt` | GPT-4o for complex tasks; GPT-4o-mini for lighter tasks |
+| `gemini` | Gemini 2.5 Pro for complex tasks; Gemini 2.5 Flash for faster responses |
+| `custom` | User-defined models in presets.json |
+
+### Examples
 
 ```bash
-# Preview only (don't install)
+# Preview what will be installed (Linux/macOS)
 curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --dry-run
 
-# Force reinstall
-curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --force
+# Force reinstall all agents (Windows)
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex -ArgumentList "-Force"
 
-# Use Claude models
-irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex -ArgumentList "-Provider claude"
+# Install with Claude models (Linux/macOS)
+curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --provider claude
+
+# Install with GPT models (Windows)
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex -ArgumentList "-Provider gpt"
 ```
 
-## Estructura
+## Repository Structure
 
 ```
 .
-├── opencode/                    # Configuración OpenCode
+├── opencode/                    # OpenCode configuration
 │   ├── config/
-│   │   └── agents.json         # Definiciones de agentes
-│   ├── prompts/unity/         # Prompts para cada agente
-│   │   ├── unity-6000-expert.md # Orquestador (delega a sub-agentes)
-│   │   └── unity-*-expert.md   # 16 sub-agentes especializados
-│   └── install.ps1             # Script de instalación (local)
+│   │   └── agents.json         # Agent definitions
+│   ├── prompts/unity/         # Prompts for each agent
+│   │   ├── unity-6000-expert.md # Orchestrator (delegates to sub-agents)
+│   │   └── unity-*-expert.md   # 18 specialized sub-agents
+│   └── install.ps1             # Local installation script
 │
 ├── scripts/
-│   ├── install.sh              # One-liner para Linux/macOS
-│   └── install.ps1             # One-liner para Windows
+│   ├── install.sh              # One-liner for Linux/macOS
+│   └── install.ps1             # One-liner for Windows
 │
-├── skills/                      # Skills de conocimiento
+├── skills/                      # Knowledge skills
 │   ├── unity-3d-graphics/       # URP, shaders, lighting
 │   ├── unity-2d/                # Sprites, tilemaps, 2D physics
 │   ├── unity-physics/           # Colliders, joints, rigidbody
@@ -54,7 +76,7 @@ irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/script
 │   ├── unity-performance/       # Profiling, optimization
 │   ├── unity-build-deploy/      # BuildPlayerOptions, IL2CPP
 │   ├── unity-vfx/               # Particle Systems, VFX Graph
-│   ├── unity-input/             # Input System (no legacy)
+│   ├── unity-input/             # Input System (not legacy)
 │   ├── unity-xr/                # AR Foundation, VR
 │   ├── unity-ui-*               # UI Toolkit (UXML, USS, C#)
 │   ├── unity-cinemachine/       # Virtual cameras, Timeline
@@ -62,61 +84,61 @@ irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/script
 │   ├── unity-packages/          # Package Manager
 │   └── unity-shadergraph/       # Shader Graph, nodes, Master Stack
 │
-├── agents/                      # Agentes standalone (backup)
-├── Manual/                      # Manual convertido a MD (3435 archivos)
-└── scripts/                     # Instaladores one-liner
+├── agents/                      # Standalone agents (backup)
+├── Manual/                      # Unity Manual converted to MD (3435 files)
+└── scripts/                     # One-liner installers
 ```
 
-## Instalación Local
+## Local Installation
 
-```powershell
-# Clonar el repo
+```bash
+# Clone the repo
 git clone https://github.com/Ulysses-Alv/Unity-Agent-Expert.git
 cd Unity-Agent-Expert
 
 # Linux/macOS
 chmod +x install.sh
 ./install.sh --dry-run   # Preview
-./install.sh            # Instalar
+./install.sh             # Install
 
 # Windows PowerShell
 .\install.ps1 -DryRun    # Preview
-.\install.ps1            # Instalar
+.\install.ps1            # Install
 ```
 
-## Uso
+## Usage
 
-### Activar el orquestador Unity
+### Activate Unity Orchestrator
 
 ```
 /agent unity-6000-expert
 ```
 
-El orquestador detecta el dominio del problema y delega al sub-agente apropiado.
+The orchestrator detects the problem domain and delegates to the appropriate specialized sub-agent.
 
-### Dominios disponibles
+### Available Domains
 
-| Dominio | Agente | Modelo |
-|---------|--------|--------|
-| UI Toolkit | unity-ui-expert | MiMo-V2-Pro |
-| Shader Graph | unity-shadergraph-expert | MiMo-V2-Pro |
-| 3D Graphics | unity-graphics-expert | MiMo-V2-Pro |
-| 2D Graphics | unity-2d-expert | MiniMax M2.7 |
-| Physics | unity-physics-expert | Qwen 3.6 Plus |
-| Scripting | unity-scripting-expert | Qwen 3.6 Plus |
-| Animation | unity-animation-expert | MiMo-V2-Pro |
-| Audio | unity-audio-expert | MiniMax M2.7 |
-| Editor | unity-editor-expert | MiniMax M2.7 |
-| Performance | unity-performance-expert | Qwen 3.6 Plus |
-| Build | unity-build-expert | MiniMax M2.7 |
-| VFX | unity-vfx-expert | MiMo-V2-Pro |
-| Input | unity-input-expert | MiniMax M2.7 |
-| XR | unity-xr-expert | Qwen 3.6 Plus |
-| Cinemachine | unity-cinemachine-expert | MiMo-V2-Pro |
-| Addressables | unity-addressables-expert | Qwen 3.5 Plus |
-| Packages | unity-packages-expert | MiniMax M2.7 |
+| Domain | Agent |
+|--------|-------|
+| UI Toolkit | unity-ui-expert |
+| Shader Graph | unity-shadergraph-expert |
+| 3D Graphics | unity-graphics-expert |
+| 2D Graphics | unity-2d-expert |
+| Physics | unity-physics-expert |
+| Scripting | unity-scripting-expert |
+| Animation | unity-animation-expert |
+| Audio | unity-audio-expert |
+| Editor | unity-editor-expert |
+| Performance | unity-performance-expert |
+| Build & Deploy | unity-build-expert |
+| VFX | unity-vfx-expert |
+| Input | unity-input-expert |
+| XR (AR/VR) | unity-xr-expert |
+| Cinemachine | unity-cinemachine-expert |
+| Addressables | unity-addressables-expert |
+| Packages | unity-packages-expert |
 
-## Arquitectura
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -124,14 +146,14 @@ El orquestador detecta el dominio del problema y delega al sub-agente apropiado.
 └─────────────────────┬───────────────────────────────┘
                       │
                       ▼
-         ┌────────────────────────┐
-         │  unity-6000-expert     │  ← Orquestador
-         │  (detecta dominio)      │
-         └────────────┬────────────┘
-                      │ delegate (async)
-     ┌────────────────┼────────────────┐
-     │                │                │
-     ▼                ▼                ▼
+           ┌────────────────────────┐
+           │  unity-6000-expert     │  ← Orchestrator
+           │  (detects domain)       │
+           └────────────┬────────────┘
+                        │ async delegation
+     ┌─────────────────┼─────────────────┐
+     │                 │                 │
+     ▼                 ▼                 ▼
 ┌─────────┐     ┌───────────┐    ┌──────────┐
 │unity-   │     │unity-    │    │unity-    │
 │graphics │     │physics   │    │scripting │
@@ -139,48 +161,40 @@ El orquestador detecta el dominio del problema y delega al sub-agente apropiado.
 └─────────┘     └───────────┘    └──────────┘
 ```
 
-## Principios
+## Key Principles
 
-1. **Delegación async** — El orquestador NUNCA bloquea. Usa `delegate` (async), no `task` (sync).
-2. **Skills actualizables** — Los sub-agentes leen skills del filesystem, no tienen conocimiento hardcodeado.
-3. **Resiliencia** — Si el sdd-orchestrator actualiza y pisa `opencode.json`, solo corrés `install.ps1` para restaurarlo.
-4. **Idempotencia** — Install.ps1 puede correr múltiples veces sin duplicar agentes.
+1. **Async delegation** — The orchestrator NEVER blocks. Uses `delegate` (async), not `task` (sync).
+2. **Updatable skills** — Sub-agents read skills from the filesystem; no hardcoded knowledge.
+3. **Resilience** — If config gets overwritten, just run `install.ps1` to restore it.
+4. **Idempotency** — Install scripts can run multiple times without duplicating agents.
 
-## Actualización
+## Updating
 
 ```bash
 # One-liner (simple)
 curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash
 
-# Local (después de git pull)
+# Local (after git pull)
 cd Unity-Agent-Expert
 ./install.sh
-# o
+# or
 .\install.ps1
 ```
 
-## Modelos asignados
+## Backup Files
 
-| Tipo de modelo | Agentes |
-|----------------|---------|
-| MiniMax M2.7 | 2D, Audio, Editor, Build, Input, Packages |
-| MiMo-V2-Pro | Graphics, Animation, VFX, UI, Cinemachine |
-| Qwen 3.6 Plus | Physics, Scripting, Performance, XR |
-| Qwen 3.5 Plus | Addressables |
+If the install script modifies opencode.json, it automatically creates a backup:
 
-## Archivos de respaldo
-
-Si install.ps1 modifica opencode.json, crea backup automáticamente:
 ```
 ~/.config/opencode/opencode.json.backup.20260419XXXXXX
 ```
 
-## Requisitos
+## Requirements
 
-- OpenCode instalado
-- PowerShell 5.1+
-- Acceso a `~/.config/opencode/`
+- OpenCode installed
+- PowerShell 5.1+ (Windows) or bash (Linux/macOS)
+- Access to `~/.config/opencode/`
 
-## Licencia
+## License
 
 Apache 2.0
