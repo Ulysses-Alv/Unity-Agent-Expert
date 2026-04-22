@@ -14,16 +14,68 @@ curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main
 irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex
 ```
 
-### Installation Flags
+This installs the `unity-agent-expert` CLI to `~/.local/bin` (Linux/macOS) or `%LOCALAPPDATA%\unity-agent-expert\bin` (Windows).
 
-| Flag | Description |
-|------|-------------|
-| `--dry-run` / `-DryRun` | Preview what will be installed without making changes |
-| `--force` / `-Force` | Overwrite existing agents (default: skip if already installed) |
-| `--dev` / `-Dev` | Install development dependencies |
-| `--provider <name>` / `-Provider <name>` | Set model provider. Values: `opencode`, `claude`, `gpt`, `gemini`, `custom` |
+### Add to PATH
 
-#### Provider Model Mapping
+After installation, add the binary to your PATH:
+
+**Linux/macOS:**
+```bash
+export PATH="$PATH:$HOME/.local/bin"
+# Add to ~/.bashrc or ~/.zshrc to persist
+```
+
+**Windows PowerShell:**
+```powershell
+[Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';$env:LOCALAPPDATA\unity-agent-expert\bin', 'User')
+```
+
+### First Run
+
+```bash
+unity-agent-expert --help
+```
+
+## CLI Commands
+
+### `unity-agent-expert install`
+
+Installs Unity agents, prompts, and skills into the OpenCode configuration.
+
+```bash
+unity-agent-expert install --provider gpt         # Install with GPT models
+unity-agent-expert install --provider claude     # Install with Claude models
+unity-agent-expert install --dry-run             # Preview changes
+unity-agent-expert install --force               # Overwrite existing
+```
+
+### `unity-agent-expert sync`
+
+Idempotently re-applies configuration (updates model assignments, etc.).
+
+```bash
+unity-agent-expert sync                            # Re-apply last provider
+unity-agent-expert sync --provider claude         # Change to Claude models
+```
+
+### `unity-agent-expert doctor`
+
+Checks installation health.
+
+```bash
+unity-agent-expert doctor
+```
+
+### `unity-agent-expert version`
+
+Shows version information.
+
+```bash
+unity-agent-expert version
+```
+
+## Provider Model Mapping
 
 | Provider | Models Used |
 |----------|-------------|
@@ -33,160 +85,101 @@ irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/script
 | `gemini` | Gemini 2.5 Pro for complex tasks; Gemini 2.5 Flash for faster responses |
 | `custom` | User-defined models in presets.json |
 
-### Examples
-
-```bash
-# Linux/macOS
-curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --dry-run
-curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --provider claude
-```
-
-```powershell
-# Windows PowerShell - parameters BEFORE the pipe
-irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 -DryRun | iex
-irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 -Force | iex
-irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 -Provider gpt | iex
-```
-
 ## Repository Structure
 
 ```
 .
-├── opencode/                    # OpenCode configuration
-│   ├── config/
-│   │   └── agents.json         # Agent definitions
-│   ├── prompts/unity/         # Prompts for each agent
-│   │   ├── unity-6000-expert.md # Orchestrator (delegates to sub-agents)
-│   │   └── unity-*-expert.md   # 18 specialized sub-agents
-│   └── install.ps1             # Local installation script
+├── unity-expert/                  # Go CLI source
+│   ├── cmd/unity-expert/          # Main entry point
+│   ├── internal/                  # Internal packages
+│   │   ├── cli/                   # CLI commands (install, sync, doctor)
+│   │   ├── config/                # OpenCode config handling
+│   │   ├── install/               # Install pipeline
+│   │   ├── backup/                # Backup system (tar.gz)
+│   │   └── embed/                 # Embedded assets
+│   ├── prompts/                   # Embedded prompts
+│   ├── skills/                    # Embedded skills
+│   └── .goreleaser.yaml           # Multi-platform build config
 │
+├── install.ps1                    # Bootstrapper installer (root)
 ├── scripts/
-│   ├── install.sh              # One-liner for Linux/macOS
-│   └── install.ps1             # One-liner for Windows
+│   ├── install.sh                 # Linux/macOS bootstrapper
+│   ├── install.ps1                # Legacy installer (full logic)
+│   └── install-legacy.ps1         # Legacy installer (full logic, backup)
 │
-├── skills/                      # Knowledge skills
-│   ├── unity-3d-graphics/       # URP, shaders, lighting
-│   ├── unity-2d/                # Sprites, tilemaps, 2D physics
-│   ├── unity-physics/           # Colliders, joints, rigidbody
-│   ├── unity-scripting/         # MonoBehaviour, C#, Jobs
-│   ├── unity-animation/          # Animator, Timeline, Playables
-│   ├── unity-audio/             # AudioSource, AudioMixer
-│   ├── unity-editor/            # EditorWindow, Custom Inspectors
-│   ├── unity-performance/       # Profiling, optimization
-│   ├── unity-build-deploy/      # BuildPlayerOptions, IL2CPP
-│   ├── unity-vfx/               # Particle Systems, VFX Graph
-│   ├── unity-input/             # Input System (not legacy)
-│   ├── unity-xr/                # AR Foundation, VR
-│   ├── unity-ui-*               # UI Toolkit (UXML, USS, C#)
-│   ├── unity-cinemachine/       # Virtual cameras, Timeline
-│   ├── unity-addressables/      # Async loading, AssetBundles
-│   ├── unity-packages/          # Package Manager
-│   └── unity-shadergraph/       # Shader Graph, nodes, Master Stack
+├── opencode/                      # OpenCode configuration
+│   ├── config/
+│   │   └── agents.json            # Agent definitions
+│   └── prompts/unity/             # Prompts for each agent
 │
-├── agents/                      # Standalone agents (backup)
-├── Manual/                      # Unity Manual converted to MD (3435 files)
-└── scripts/                     # One-liner installers
+└── skills/                        # Knowledge skills
+    ├── unity-3d-graphics/         # URP, shaders, lighting
+    ├── unity-2d/                  # Sprites, tilemaps, 2D physics
+    ├── unity-physics/             # Colliders, joints, rigidbody
+    ├── unity-scripting/           # MonoBehaviour, C#, Jobs
+    ├── unity-animation/           # Animator, Timeline, Playables
+    ├── unity-audio/               # AudioSource, AudioMixer
+    ├── unity-editor/               # EditorWindow, Custom Inspectors
+    ├── unity-performance/         # Profiling, optimization
+    ├── unity-build-deploy/         # BuildPlayerOptions, IL2CPP
+    ├── unity-vfx/                 # Particle Systems, VFX Graph
+    ├── unity-input/                # Input System (not legacy)
+    ├── unity-xr/                  # AR Foundation, VR
+    ├── unity-ui-*                  # UI Toolkit (UXML, USS, C#)
+    ├── unity-cinemachine/          # Virtual cameras, Timeline
+    ├── unity-addressables/        # Async loading, AssetBundles
+    ├── unity-packages/             # Package Manager
+    └── unity-shadergraph/          # Shader Graph, nodes, Master Stack
 ```
-
-## Local Installation
-
-```bash
-# Clone the repo
-git clone https://github.com/Ulysses-Alv/Unity-Agent-Expert.git
-cd Unity-Agent-Expert
-
-# Linux/macOS
-chmod +x install.sh
-./install.sh --dry-run   # Preview
-./install.sh             # Install
-
-# Windows PowerShell
-.\install.ps1 -DryRun    # Preview
-.\install.ps1            # Install
-```
-
-## Usage
-
-### Activate Unity Orchestrator
-
-```
-/agent unity-6000-expert
-```
-
-The orchestrator detects the problem domain and delegates to the appropriate specialized sub-agent.
-
-### Available Domains
-
-| Domain | Agent |
-|--------|-------|
-| UI Toolkit | unity-ui-expert |
-| Shader Graph | unity-shadergraph-expert |
-| 3D Graphics | unity-graphics-expert |
-| 2D Graphics | unity-2d-expert |
-| Physics | unity-physics-expert |
-| Scripting | unity-scripting-expert |
-| Animation | unity-animation-expert |
-| Audio | unity-audio-expert |
-| Editor | unity-editor-expert |
-| Performance | unity-performance-expert |
-| Build & Deploy | unity-build-expert |
-| VFX | unity-vfx-expert |
-| Input | unity-input-expert |
-| XR (AR/VR) | unity-xr-expert |
-| Cinemachine | unity-cinemachine-expert |
-| Addressables | unity-addressables-expert |
-| Packages | unity-packages-expert |
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────┐
-│                   USER                               │
-└─────────────────────┬───────────────────────────────┘
-                      │
-                      ▼
-           ┌────────────────────────┐
-           │  unity-6000-expert     │  ← Orchestrator
-           │  (detects domain)       │
-           └────────────┬────────────┘
-                        │ async delegation
-     ┌─────────────────┼─────────────────┐
-     │                 │                 │
-     ▼                 ▼                 ▼
-┌─────────┐     ┌───────────┐    ┌──────────┐
-│unity-   │     │unity-    │    │unity-    │
-│graphics │     │physics   │    │scripting │
-│-expert  │     │-expert   │    │-expert   │
-└─────────┘     └───────────┘    └──────────┘
-```
+The system uses a **bootstrapper + CLI** architecture:
 
-## Key Principles
-
-1. **Async delegation** — The orchestrator NEVER blocks. Uses `delegate` (async), not `task` (sync).
-2. **Updatable skills** — Sub-agents read skills from the filesystem; no hardcoded knowledge.
-3. **Resilience** — If config gets overwritten, just run `install.ps1` to restore it.
-4. **Idempotency** — Install scripts can run multiple times without duplicating agents.
+```
+┌─────────────────────────────────────────────────────────────┐
+│  install.ps1 / install.sh (bootstrapper)                   │
+│  Downloads unity-agent-expert binary                        │
+│  Installs to ~/.local/bin or %LOCALAPPDATA%\                 │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  unity-agent-expert (CLI)                                    │
+│  ├── install  → Installs agents, prompts, skills            │
+│  ├── sync     → Idempotent re-apply                         │
+│  ├── doctor   → Health checks                               │
+│  └── version  → Version info                                │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  ~/.config/opencode/                                         │
+│  ├── opencode.json           # Modified with Unity agents    │
+│  ├── prompts/unity/          # Copied prompts               │
+│  └── skills/unity-6000/     # Copied skills                │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## Updating
 
 ```bash
-# One-liner (simple)
-curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash
+# Update the CLI
+unity-agent-expert update
 
-# Local (after git pull)
-cd Unity-Agent-Expert
-./install.sh
-# or
-.\install.ps1
+# Or re-run the bootstrapper
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex
 ```
 
-## Backup Files
+## Backup & Rollback
 
-If the install script modifies opencode.json, it automatically creates a backup:
+Every `install` automatically creates a backup:
 
-```
-~/.config/opencode/opencode.json.backup.YYYYMMDDXXXXXX
-```
+- Location: `~/.unity-expert/backups/`
+- Format: `tar.gz` with `manifest.json`
+- Auto-prune: keeps 5 most recent
+
+To rollback, use the restore command or restore from a specific backup.
 
 ## Requirements
 
@@ -196,4 +189,4 @@ If the install script modifies opencode.json, it automatically creates a backup:
 
 ## License
 
-MIT Licence
+MIT License
