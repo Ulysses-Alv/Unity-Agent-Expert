@@ -9,7 +9,8 @@ AI agents specialized in Unity 6000.3 LTS development. Built on OpenCode with an
 ```bash
 # Linux / macOS
 curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash
-
+```
+```bash
 # Windows PowerShell
 irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/install.ps1 | iex
 ```
