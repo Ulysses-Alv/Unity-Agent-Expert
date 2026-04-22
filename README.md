@@ -188,6 +188,81 @@ To rollback, use the restore command or restore from a specific backup.
 - PowerShell 5.1+ (Windows) or bash (Linux/macOS)
 - Access to `~/.config/opencode/`
 
+## Contributing
+
+Contributions are welcome! Here's how you can help:
+
+### Ways to Contribute
+
+- **Report bugs** — Open an issue with reproduction steps
+- **Suggest features** — Open an issue with your proposal
+- **Improve documentation** — Skills, prompts, or README improvements
+- **Add new skills** — Extend Unity domain coverage
+- **Submit code** — PRs for bug fixes or new features
+
+### Development Setup
+
+```bash
+# Clone the repo
+git clone https://github.com/Ulysses-Alv/Unity-Agent-Expert.git
+cd Unity-Agent-Expert
+
+# Prerequisites
+- Go 1.21+
+- goreleaser (for releases)
+
+# Build locally
+cd unity-expert
+go build -ldflags "-X main.version=1.0.0" -o unity-agent-expert.exe ./cmd/unity-expert
+
+# Run tests
+go test ./...
+
+# Build release
+goreleaser build --clean
+```
+
+### Creating Releases
+
+Releases are automated with goreleaser. To create a release:
+
+```bash
+# Ensure GITHUB_TOKEN is set
+export GITHUB_TOKEN="your-github-token"
+
+# Create and push version tag
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0
+
+# Run goreleaser
+cd unity-expert
+goreleaser release --clean
+```
+
+### Code Standards
+
+- Write clear commit messages (conventional commits preferred)
+- Add tests for new functionality
+- Run `go fmt` before committing
+- Update this README if you add new features
+
 ## License
 
 MIT License
+
+---
+
+**⚠️ Disclaimer: Everything was vibecodeado**
+
+This project was built with AI-assisted coding (vibe coding). Every line, every decision, every architectural choice was made with AI agents — from the initial exploration to the final implementation.
+
+**Philosophy:** If it works, ship it. If it's ugly, make it work first. Beauty comes later.
+
+The goal was to solve a real problem (Unity agent installation) not to write perfect code. The result is pragmatic, functional, and documented.
+
+If you want to learn how this was built, explore the git history. If you want to build something similar, use the same approach: define what you want, let AI do the work, verify the result.
+
+**Recommended reading:**
+- [gentle-ai/gentle-ai](https://github.com/Gentleman-Programming/gentle-ai) — inspiration for the bootstrapper + CLI architecture
+- [SDD Workflow](https://github.com/gentle-ai/gentle-ai/blob/main/AGENTS.md) — how to use AI agents for software development
+- [Agent Teams Lite](https://github.com/gentle-ai/agent-teams-lite) — the orchestration system used
