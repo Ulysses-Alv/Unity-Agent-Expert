@@ -2,6 +2,31 @@
 
 Sistema de agentes IA especializados en Unity 6000.3 LTS. Construido sobre OpenCode con arquitectura de orquestador + sub-agentes especializados.
 
+## Quick Installation
+
+### One-Liner (recommended)
+
+```bash
+# Linux / macOS
+curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash
+
+# Windows PowerShell
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex
+```
+
+### With flags
+
+```bash
+# Preview only (don't install)
+curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --dry-run
+
+# Force reinstall
+curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --force
+
+# Use Claude models
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex -ArgumentList "-Provider claude"
+```
+
 ## Estructura
 
 ```
@@ -12,7 +37,11 @@ Sistema de agentes IA especializados en Unity 6000.3 LTS. Construido sobre OpenC
 │   ├── prompts/unity/         # Prompts para cada agente
 │   │   ├── unity-6000-expert.md # Orquestador (delega a sub-agentes)
 │   │   └── unity-*-expert.md   # 16 sub-agentes especializados
-│   └── install.ps1             # Script de instalación
+│   └── install.ps1             # Script de instalación (local)
+│
+├── scripts/
+│   ├── install.sh              # One-liner para Linux/macOS
+│   └── install.ps1             # One-liner para Windows
 │
 ├── skills/                      # Skills de conocimiento
 │   ├── unity-3d-graphics/       # URP, shaders, lighting
@@ -30,24 +59,29 @@ Sistema de agentes IA especializados en Unity 6000.3 LTS. Construido sobre OpenC
 │   ├── unity-ui-*               # UI Toolkit (UXML, USS, C#)
 │   ├── unity-cinemachine/       # Virtual cameras, Timeline
 │   ├── unity-addressables/      # Async loading, AssetBundles
-│   └── unity-packages/          # Package Manager
+│   ├── unity-packages/          # Package Manager
+│   └── unity-shadergraph/       # Shader Graph, nodes, Master Stack
 │
 ├── agents/                      # Agentes standalone (backup)
-└── ManualMD/                    # Manual convertido a MD (3435 archivos)
+├── Manual/                      # Manual convertido a MD (3435 archivos)
+└── scripts/                     # Instaladores one-liner
 ```
 
-## Instalación
+## Instalación Local
 
 ```powershell
 # Clonar el repo
-git clone <repo-url>
+git clone https://github.com/Ulysses-Alv/Unity-Agent-Expert.git
+cd Unity-Agent-Expert
 
-# Ir a la carpeta opencode
-cd opencode
+# Linux/macOS
+chmod +x install.sh
+./install.sh --dry-run   # Preview
+./install.sh            # Instalar
 
-# Instalar (preview primero)
-.\install.ps1 -DryRun    # Ver qué se instalará
-.\install.ps1             # Instalar realmente
+# Windows PowerShell
+.\install.ps1 -DryRun    # Preview
+.\install.ps1            # Instalar
 ```
 
 ## Uso
@@ -65,6 +99,7 @@ El orquestador detecta el dominio del problema y delega al sub-agente apropiado.
 | Dominio | Agente | Modelo |
 |---------|--------|--------|
 | UI Toolkit | unity-ui-expert | MiMo-V2-Pro |
+| Shader Graph | unity-shadergraph-expert | MiMo-V2-Pro |
 | 3D Graphics | unity-graphics-expert | MiMo-V2-Pro |
 | 2D Graphics | unity-2d-expert | MiniMax M2.7 |
 | Physics | unity-physics-expert | Qwen 3.6 Plus |
@@ -113,9 +148,14 @@ El orquestador detecta el dominio del problema y delega al sub-agente apropiado.
 
 ## Actualización
 
-```powershell
-# Después de un git pull
-cd opencode
+```bash
+# One-liner (simple)
+curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash
+
+# Local (después de git pull)
+cd Unity-Agent-Expert
+./install.sh
+# o
 .\install.ps1
 ```
 
