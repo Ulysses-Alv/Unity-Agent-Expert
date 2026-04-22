@@ -252,15 +252,38 @@ MIT License
 
 ---
 
-**⚠️ Disclaimer: Everything was vibecoded**
+---
 
-This project was built with AI-assisted coding (vibe coding). Every line, every decision, every architectural choice was made with AI agents — from the initial exploration to the final implementation.
+## ⚠️ Disclaimer: Built fast, with AI
 
-**Philosophy:** If it works, ship it. If it's ugly, make it work first. Beauty comes later.
+This project was built quickly (in ~2 days), heavily relying on AI.
 
-The goal was to solve a real problem (Unity agent installation) not to write perfect code. The result is pragmatic, functional, and documented.
+I used this as an experiment: to see how far I could go building something I *don’t fully know how to do*, by leaning on AI for speed and exploration. Many of these things I could have learned “properly” — but that would have taken weeks.
 
-If you want to learn how this was built, explore the git history. If you want to build something similar, use the same approach: define what you want, let AI do the work, verify the result.
+Because of that:
+
+- Some architectural decisions might be wrong
+- There are probably inconsistencies or rough edges
+- Parts of the system were left to AI judgment rather than deep expertise
+
+And that’s kind of the point.
+
+### Philosophy
+
+Ship fast, learn faster.
+
+This project prioritizes momentum over perfection. It exists because it works — not because it’s clean.
+
+### Contributing
+
+If you want to contribute, I encorauge you to do the same:
+
+- Use AI to explore and build
+- Question the results
+- Improve what’s already here
+
+
+---
 
 **Recommended reading:**
 - [gentle-ai/gentle-ai](https://github.com/Gentleman-Programming/gentle-ai) — inspiration for the bootstrapper + CLI architecture
