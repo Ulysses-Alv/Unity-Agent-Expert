@@ -21,7 +21,7 @@ type CheckResult struct {
 // RunDoctor performs health checks on the Unity Expert installation.
 func RunDoctor() error {
 	fmt.Println()
-	fmt.Println("Unity Expert Doctor — Installation Health Check")
+	fmt.Println("Unity Agent Expert — Installation Health Check")
 	fmt.Println("================================================")
 	fmt.Println()
 

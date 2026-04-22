@@ -8,7 +8,7 @@ import (
 
 // PrintUsage prints the CLI usage information.
 func PrintUsage() {
-	fmt.Println("Usage: unity-expert <command> [flags]")
+	fmt.Println("Usage: unity-agent-expert <command> [flags]")
 	fmt.Println()
 	fmt.Println("Commands:")
 	fmt.Println("  install    Install Unity agents, prompts, and skills")
@@ -16,12 +16,12 @@ func PrintUsage() {
 	fmt.Println("  doctor     Check installation health")
 	fmt.Println("  version    Display version information")
 	fmt.Println()
-	fmt.Println("Run 'unity-expert help' for detailed usage information.")
+	fmt.Println("Run 'unity-agent-expert help' for detailed usage information.")
 }
 
 // printInstallUsage prints detailed install command usage.
 func printInstallUsage() {
-	fmt.Println("Usage: unity-expert install [flags]")
+	fmt.Println("Usage: unity-agent-expert install [flags]")
 	fmt.Println()
 	fmt.Println("Installs Unity agents, prompts, and skills into the OpenCode configuration.")
 	fmt.Println()
@@ -32,14 +32,14 @@ func printInstallUsage() {
 	fmt.Println("  --agents string    Comma-separated list of specific agents to install")
 	fmt.Println()
 	fmt.Println("Examples:")
-	fmt.Println("  unity-expert install --provider claude")
-	fmt.Println("  unity-expert install --provider gpt --dry-run")
-	fmt.Println("  unity-expert install --agents unity-6000-expert,unity-graphics-expert")
+	fmt.Println("  unity-agent-expert install --provider claude")
+	fmt.Println("  unity-agent-expert install --provider gpt --dry-run")
+	fmt.Println("  unity-agent-expert install --agents unity-6000-expert,unity-graphics-expert")
 }
 
 // printSyncUsage prints detailed sync command usage.
 func printSyncUsage() {
-	fmt.Println("Usage: unity-expert sync [flags]")
+	fmt.Println("Usage: unity-agent-expert sync [flags]")
 	fmt.Println()
 	fmt.Println("Idempotently re-applies configuration without reinstalling binaries.")
 	fmt.Println()
@@ -49,13 +49,13 @@ func printSyncUsage() {
 	fmt.Println("  --force             Force overwrite even if no drift detected")
 	fmt.Println()
 	fmt.Println("Examples:")
-	fmt.Println("  unity-expert sync")
-	fmt.Println("  unity-expert sync --provider claude --dry-run")
+	fmt.Println("  unity-agent-expert sync")
+	fmt.Println("  unity-agent-expert sync --provider claude --dry-run")
 }
 
 // printDoctorUsage prints detailed doctor command usage.
 func printDoctorUsage() {
-	fmt.Println("Usage: unity-expert doctor")
+	fmt.Println("Usage: unity-agent-expert doctor")
 	fmt.Println()
 	fmt.Println("Checks the health of the Unity Agent Expert installation.")
 	fmt.Println()

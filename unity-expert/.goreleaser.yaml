@@ -1,0 +1,58 @@
+# goreleaser.yaml for unity-agent-expert
+# Build multiple binaries for different platforms
+
+project_name: unity-agent-expert
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: unity-agent-expert
+    main: ./cmd/unity-expert
+    binary: unity-agent-expert
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+    hooks:
+      post:
+        # Rename .exe for Windows
+        - hook: rename
+          args:
+            - "{{.Binary}}"
+            - "{{.Binary}}.exe"
+          only:
+            windows: true
+
+archives:
+  - id: default
+    format: zip
+    files:
+      - README.md
+      - LICENSE
+
+checksum:
+  name_template: checksums.txt
+
+snapshot:
+  name_template: "{{ incpatch .Version }}"
+  prerelease: auto
+
+release:
+  github:
+    owner: Ulysses-Alv
+    name: Unity-Agent-Expert
+  prerelease: false
+
+announce:
+  twitter:
+    disabled: true

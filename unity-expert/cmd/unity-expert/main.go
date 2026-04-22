@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -22,7 +23,7 @@ func main() {
 
 	// Handle --version flag regardless of command position
 	if command == "--version" || command == "-v" {
-		fmt.Printf("unity-expert v%s\n", version)
+		fmt.Printf("unity-agent-expert v%s\n", version)
 		return
 	}
 
@@ -35,7 +36,7 @@ func main() {
 	case "doctor":
 		err = cli.RunDoctor()
 	case "version":
-		fmt.Printf("unity-expert v%s\n", version)
+		fmt.Printf("unity-agent-expert v%s\n", version)
 		return
 	case "help", "--help", "-h":
 		cli.PrintUsage()
@@ -47,6 +48,11 @@ func main() {
 	}
 
 	if err != nil {
+		// Don't print anything for help (flag.ErrHelp)
+		if err == flag.ErrHelp {
+			return
+		}
+
 		exitCode := 1
 		switch err.(type) {
 		case *install.BackupError:

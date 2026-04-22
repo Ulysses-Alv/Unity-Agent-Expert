@@ -44,7 +44,7 @@ func RunSync(args []string) error {
 	state, err := configpkg.ReadState(configpkg.DefaultStatePath())
 	if err != nil {
 		if os.IsNotExist(err) {
-			fmt.Println("[WARN] No state.json found. Run 'unity-expert install' first.")
+			fmt.Println("[WARN] No state.json found. Run 'unity-agent-expert install' first.")
 			return fmt.Errorf("state.json not found: please run install first")
 		}
 		return fmt.Errorf("failed to read state.json: %w", err)

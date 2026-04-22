@@ -31,9 +31,17 @@ var validProviders = map[string]bool{
 
 // ParseInstallFlags parses command-line flags for the install command.
 func ParseInstallFlags(args []string) (InstallOptions, error) {
+	// Check for help flag
+	for _, arg := range args {
+		if arg == "-h" || arg == "--help" {
+			printInstallUsage()
+			return InstallOptions{}, flag.ErrHelp
+		}
+	}
+
 	fs := flag.NewFlagSet("install", flag.ContinueOnError)
 	fs.Usage = func() {
-		fmt.Println("Usage: unity-expert install [flags]")
+		fmt.Println("Usage: unity-agent-expert install [flags]")
 		fmt.Println("Flags:")
 		fs.PrintDefaults()
 	}
@@ -63,9 +71,17 @@ func ParseInstallFlags(args []string) (InstallOptions, error) {
 
 // ParseSyncFlags parses command-line flags for the sync command.
 func ParseSyncFlags(args []string) (SyncOptions, error) {
+	// Check for help flag
+	for _, arg := range args {
+		if arg == "-h" || arg == "--help" {
+			printSyncUsage()
+			return SyncOptions{}, flag.ErrHelp
+		}
+	}
+
 	fs := flag.NewFlagSet("sync", flag.ContinueOnError)
 	fs.Usage = func() {
-		fmt.Println("Usage: unity-expert sync [flags]")
+		fmt.Println("Usage: unity-agent-expert sync [flags]")
 		fmt.Println("Flags:")
 		fs.PrintDefaults()
 	}
