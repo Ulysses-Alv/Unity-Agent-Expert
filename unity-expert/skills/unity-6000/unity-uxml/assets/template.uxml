@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="theme.uss" />
+    
+    <!-- Root container -->
+    <ui:VisualElement name="root" class="root-container">
+        
+        <!-- Header -->
+        <ui:VisualElement name="header" class="header">
+            <ui:Label name="title" text="My UI Title" class="title" />
+            <ui:Button name="close-button" text="X" class="close-button" />
+        </ui:VisualElement>
+        
+        <!-- Content area -->
+        <ui:VisualElement name="content" class="content">
+            <ui:Label name="description" text="Description text here" class="description" />
+            
+            <!-- Input fields -->
+            <ui:TextField name="name-input" label="Name" max-length="50" />
+            <ui:Toggle name="enabled-toggle" label="Enabled" value="true" />
+            <ui:Slider name="volume-slider" label="Volume" low-value="0" high-value="100" value="50" />
+            
+            <!-- Dropdown -->
+            <ui:PopupField name="options-dropdown" label="Options" choices="Option A;Option B;Option C" value="Option A" />
+        </ui:VisualElement>
+        
+        <!-- Footer with buttons -->
+        <ui:VisualElement name="footer" class="footer">
+            <ui:Button name="cancel-button" text="Cancel" class="secondary-button" />
+            <ui:Button name="confirm-button" text="Confirm" class="primary-button" />
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>

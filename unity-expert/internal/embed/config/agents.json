@@ -1,0 +1,230 @@
+{
+  "unity-6000-expert": {
+    "description": "Unity 6000.3 LTS Expert Orchestrator. Detects domain and delegates to specialized sub-agents.",
+    "mode": "primary",
+    "model": "opencode-go/minimax-m2.7",
+    "prompt": "{file:../prompts/unity/unity-6000-expert.md}",
+    "tools": {
+      "bash": true,
+      "delegate": true,
+      "delegation_list": true,
+      "delegation_read": true,
+      "read": true,
+      "write": true
+    },
+    "permission": {
+      "delegate": {
+        "*": "deny",
+        "unity-*": "allow"
+      },
+      "task": {
+        "*": "deny",
+        "unity-*": "allow"
+      }
+    }
+  },
+  "unity-graphics-expert": {
+    "description": "Unity 6000.3 LTS 3D Graphics expert. URP, shaders, lighting, materials.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/mimo-v2-pro",
+    "prompt": "{file:../prompts/unity/unity-graphics-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-2d-expert": {
+    "description": "Unity 6000.3 LTS 2D Game Development expert. Sprites, 2D physics, tilemaps, 2D animation.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/minimax-m2.7",
+    "prompt": "{file:../prompts/unity/unity-2d-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-physics-expert": {
+    "description": "Unity 6000.3 LTS Physics expert. Rigidbodies, colliders, joints, physics materials, ragdolls.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/qwen3.6-plus",
+    "prompt": "{file:../prompts/unity/unity-physics-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-scripting-expert": {
+    "description": "Unity 6000.3 LTS Scripting expert. C#, MonoBehaviour, ECS, Job System, Burst compiler.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/qwen3.6-plus",
+    "prompt": "{file:../prompts/unity/unity-scripting-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-animation-expert": {
+    "description": "Unity 6000.3 LTS Animation expert. Animator, animation curves, state machines, blend trees.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/mimo-v2-pro",
+    "prompt": "{file:../prompts/unity/unity-animation-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-audio-expert": {
+    "description": "Unity 6000.3 LTS Audio expert. AudioSource, AudioMixer, spatial audio, Wwise integration.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/minimax-m2.7",
+    "prompt": "{file:../prompts/unity/unity-audio-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-editor-expert": {
+    "description": "Unity 6000.3 LTS Editor expert. Editor scripts, custom inspectors, Gizmos, EditorWindows.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/minimax-m2.7",
+    "prompt": "{file:../prompts/unity/unity-editor-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-performance-expert": {
+    "description": "Unity 6000.3 LTS Performance expert. Profiling, optimization, memory management, GPU instancing.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/qwen3.6-plus",
+    "prompt": "{file:../prompts/unity/unity-performance-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-build-expert": {
+    "description": "Unity 6000.3 LTS Build expert. Build pipelines, platform deployment, asset bundling, IL2CPP.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/minimax-m2.7",
+    "prompt": "{file:../prompts/unity/unity-build-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-vfx-expert": {
+    "description": "Unity 6000.3 LTS VFX expert. Visual Effect Graph, particle systems, shader graph, post-processing.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/mimo-v2-pro",
+    "prompt": "{file:../prompts/unity/unity-vfx-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-input-expert": {
+    "description": "Unity 6000.3 LTS Input expert. Input System, Gamepad, touch, keyboard, haptics.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/minimax-m2.7",
+    "prompt": "{file:../prompts/unity/unity-input-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-xr-expert": {
+    "description": "Unity 6000.3 LTS XR expert. VR, AR, MR, XR Interaction Toolkit, Meta Quest, VisionOS.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/qwen3.6-plus",
+    "prompt": "{file:../prompts/unity/unity-xr-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-ui-expert": {
+    "description": "Unity 6000.3 LTS UI expert. Canvas, UI Toolkit, layout groups, TMP, UI events.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/mimo-v2-pro",
+    "prompt": "{file:../prompts/unity/unity-ui-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-cinemachine-expert": {
+    "description": "Unity 6000.3 LTS Cinemachine expert. Virtual cameras, timelines, Dolly tracks, camera mixing.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/mimo-v2-pro",
+    "prompt": "{file:../prompts/unity/unity-cinemachine-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-addressables-expert": {
+    "description": "Unity 6000.3 LTS Addressables expert. Asset loading, label systems, async operations, memory management.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/qwen3.5-plus",
+    "prompt": "{file:../prompts/unity/unity-addressables-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-packages-expert": {
+    "description": "Unity 6000.3 LTS Packages expert. Unity Package Manager, custom packages, scoped registries.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/minimax-m2.7",
+    "prompt": "{file:../prompts/unity/unity-packages-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  },
+  "unity-shadergraph-expert": {
+    "description": "Unity 6000.3 LTS Shader Graph expert. Shader graphs, nodes, Master Stack, sub-graphs, keywords.",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "opencode-go/mimo-v2-pro",
+    "prompt": "{file:../prompts/unity/unity-shadergraph-expert.md}",
+    "tools": {
+      "bash": true,
+      "read": true,
+      "write": true
+    }
+  }
+}

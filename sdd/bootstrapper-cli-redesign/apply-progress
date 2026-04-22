@@ -1,0 +1,47 @@
+# Apply Progress — bootstrapper-cli-redesign
+
+## Status: COMPLETED
+
+## Tasks Completed
+
+### Critical Fix: Agent Merge Behavior
+- [x] Created `MergeAgents` function in `internal/config/opencode.go`
+- [x] Updated `pipeline.go Apply()` to use `MergeAgents` instead of unconditional overwrite
+- [x] Added tests for all merge scenarios
+
+### PS1 Bootstrapper Simplification
+- [x] Simplified install.ps1 from 39 lines to 15 lines
+
+## MergeAgents Function — Merge Logic
+
+| Scenario | Behavior |
+|----------|----------|
+| Non-unity agent exists | ALWAYS preserved (never overwritten) |
+| Unity-* agent exists with model | Preserved (unless force=true) |
+| Unity-* agent exists WITHOUT model | Gets preset model from provider |
+| New unity-* agent | Added with preset model |
+| force=true | Overwrites everything |
+
+## Files Modified
+
+| File | Change |
+|------|--------|
+| `unity-expert/internal/config/opencode.go` | Added `MergeAgents` function with proper merge logic |
+| `unity-expert/internal/install/pipeline.go` | Updated `Apply()` to use `MergeAgents` |
+| `unity-expert/internal/config/opencode_test.go` | Added 5 new tests for merge scenarios |
+| `install.ps1` | Simplified from 39 to 15 lines |
+
+## Tests Added
+
+1. `TestMergeAgents_PreservesNonUnityAgents` — non-unity agent model preserved
+2. `TestMergeAgents_PreservesUnityAgentWithModel` — unity with model preserved (no force)
+3. `TestMergeAgents_PreservesUnityAgentWithModel_ForceOverwrites` — force=true overwrites
+4. `TestMergeAgents_UnityAgentWithoutModel_GetsPresetModel` — no model → gets preset
+5. `TestMergeAgents_NewUnityAgents_AreAdded` — new agents added with preset
+6. `TestMergeAgents_AgentFilter` — filter works correctly
+
+## Verification
+
+- `go test ./...` — PASS
+- `go build ./...` — PASS
+- install.ps1 — 15 lines (target was ~20)

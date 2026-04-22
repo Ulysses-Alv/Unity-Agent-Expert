@@ -1,0 +1,103 @@
+{
+  "opencode": {
+    "name": "OpenCode Models (default)",
+    "description": "Uses OpenCode's native models",
+    "models": {
+      "unity-6000-expert": "opencode-go/minimax-m2.7",
+      "unity-graphics-expert": "opencode-go/mimo-v2-pro",
+      "unity-2d-expert": "opencode-go/minimax-m2.7",
+      "unity-physics-expert": "opencode-go/qwen3.6-plus",
+      "unity-scripting-expert": "opencode-go/qwen3.6-plus",
+      "unity-animation-expert": "opencode-go/mimo-v2-pro",
+      "unity-audio-expert": "opencode-go/minimax-m2.7",
+      "unity-editor-expert": "opencode-go/minimax-m2.7",
+      "unity-performance-expert": "opencode-go/qwen3.6-plus",
+      "unity-build-expert": "opencode-go/minimax-m2.7",
+      "unity-vfx-expert": "opencode-go/mimo-v2-pro",
+      "unity-input-expert": "opencode-go/minimax-m2.7",
+      "unity-xr-expert": "opencode-go/qwen3.6-plus",
+      "unity-ui-expert": "opencode-go/mimo-v2-pro",
+      "unity-cinemachine-expert": "opencode-go/mimo-v2-pro",
+      "unity-addressables-expert": "opencode-go/qwen3.5-plus",
+      "unity-packages-expert": "opencode-go/minimax-m2.7",
+      "unity-shadergraph-expert": "opencode-go/mimo-v2-pro"
+    }
+  },
+  "claude": {
+    "name": "Claude Models",
+    "description": "Uses Anthropic Claude models",
+    "models": {
+      "unity-6000-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-graphics-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-2d-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-physics-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-scripting-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-animation-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-audio-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-editor-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-performance-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-build-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-vfx-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-input-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-xr-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-ui-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-cinemachine-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-addressables-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-packages-expert": "anthropic/claude-sonnet-4-20250514",
+      "unity-shadergraph-expert": "anthropic/claude-sonnet-4-20250514"
+    }
+  },
+  "gpt": {
+    "name": "GPT Models",
+    "description": "Uses OpenAI GPT models",
+    "models": {
+      "unity-6000-expert": "openai/gpt-4o",
+      "unity-graphics-expert": "openai/gpt-4o",
+      "unity-2d-expert": "openai/gpt-4o-mini",
+      "unity-physics-expert": "openai/gpt-4o",
+      "unity-scripting-expert": "openai/gpt-4o",
+      "unity-animation-expert": "openai/gpt-4o-mini",
+      "unity-audio-expert": "openai/gpt-4o-mini",
+      "unity-editor-expert": "openai/gpt-4o-mini",
+      "unity-performance-expert": "openai/gpt-4o",
+      "unity-build-expert": "openai/gpt-4o-mini",
+      "unity-vfx-expert": "openai/gpt-4o",
+      "unity-input-expert": "openai/gpt-4o-mini",
+      "unity-xr-expert": "openai/gpt-4o",
+      "unity-ui-expert": "openai/gpt-4o",
+      "unity-cinemachine-expert": "openai/gpt-4o-mini",
+      "unity-addressables-expert": "openai/gpt-4o-mini",
+      "unity-packages-expert": "openai/gpt-4o-mini",
+      "unity-shadergraph-expert": "openai/gpt-4o"
+    }
+  },
+  "gemini": {
+    "name": "Gemini Models",
+    "description": "Uses Google Gemini models",
+    "models": {
+      "unity-6000-expert": "google/gemini-2.5-pro",
+      "unity-graphics-expert": "google/gemini-2.5-pro",
+      "unity-2d-expert": "google/gemini-2.5-flash",
+      "unity-physics-expert": "google/gemini-2.5-pro",
+      "unity-scripting-expert": "google/gemini-2.5-pro",
+      "unity-animation-expert": "google/gemini-2.5-flash",
+      "unity-audio-expert": "google/gemini-2.5-flash",
+      "unity-editor-expert": "google/gemini-2.5-flash",
+      "unity-performance-expert": "google/gemini-2.5-pro",
+      "unity-build-expert": "google/gemini-2.5-flash",
+      "unity-vfx-expert": "google/gemini-2.5-pro",
+      "unity-input-expert": "google/gemini-2.5-flash",
+      "unity-xr-expert": "google/gemini-2.5-pro",
+      "unity-ui-expert": "google/gemini-2.5-pro",
+      "unity-cinemachine-expert": "google/gemini-2.5-flash",
+      "unity-addressables-expert": "google/gemini-2.5-flash",
+      "unity-packages-expert": "google/gemini-2.5-flash",
+      "unity-shadergraph-expert": "google/gemini-2.5-pro"
+    }
+  },
+  "custom": {
+    "name": "Custom Models",
+    "description": "User-defined model assignments. Edit models below:",
+    "models": {}
+  }
+}
