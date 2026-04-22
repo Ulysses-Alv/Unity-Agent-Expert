@@ -1,0 +1,5 @@
+# Run a compute shader
+
+In your script, define a variable of ComputeShader type and assign a reference to the Asset. This allows you to invoke them with [ComputeShader.Dispatch](../ScriptReference/ComputeShader.Dispatch.md) function. See Unity documentation on [ComputeShader class](../ScriptReference/ComputeShader.md) for more details.
+
+Closely related to compute **shaders** is a [ComputeBuffer](../ScriptReference/ComputeBuffer.md) class, which defines arbitrary data buffer (“structured buffer” in DX11 lingo). [Render Textures](../ScriptReference/RenderTexture.md) can also be written into from compute shaders, if they have “random access” flag set (“unordered access view” in DX11). See [RenderTexture.enableRandomWrite](../ScriptReference/RenderTexture-enableRandomWrite.md) to learn more about this.

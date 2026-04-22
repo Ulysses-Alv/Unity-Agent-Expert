@@ -1,0 +1,55 @@
+# Cookie texture Import Settings window reference
+
+The **Cookie** texture type formats the texture asset so it’s suitable to use as a light cookie in the Built-in **Render Pipeline**. For this texture type, Unity updates the [Texture Shape](class-TextureImporter.md#textureshape) automatically based on the [Light Type](#light-type) you select:
+
+* **Directional Light** and **Spot Light** cookies use the **2D** shape.
+* **Point Light** cookies use the **Cube** shape.
+
+## Light Type
+
+The **Light Type** property defines the light type that the editor applies the light cookie to. The different light types have different properties that have different recommended setup for the best effect.
+
+| Property | Description |
+| --- | --- |
+| **Light Type** | Select a light type from the dropdown options:  * **Spot Light** * **Directional Light** * **Point Light** |
+
+#### Spot Light
+
+When you select this light type, Unity sets the **Wrap Mode** to **Clamp** by default. It’s recommended that you set the edges of the light cookie texture asset to solid black for the proper light effect.
+
+#### Directional Light
+
+When you select this light type, Unity sets the **Wrap Mode** to **Repeat** by default and the light cookie texture tiles.
+
+**Note:** You can apply a cookie formatted for the Spot Light or Directional Light type to a Directional Light, but both have different effects. The Directional Light will repeat the Directional Light type in a tiled pattern, but will only project the Spot Light type cookie once.
+
+#### Point Light
+
+When you select this light type, you can customize the [Cube shape-specific](class-TextureImporter.md#textureshape) texture properties.
+
+## Properties
+
+The following are the other Cookie texture type property settings.
+
+| Property | Description |
+| --- | --- |
+| **Alpha Source** | Specifies how Unity generates the alpha value for the texture asset from the texture source file.  * **None**: The texture asset doesn’t have an alpha channel, whether the texture source file has one or not. * **Input Texture Alpha**: Unity applies the alpha channel from the texture source file to the texture asset, if the texture source file has an alpha channel. * **From Gray Scale**: Unity generates the alpha channel for the texture asset from the average values the texture source files RGB channels. |
+| **Alpha is Transparency** | Indicates whether to dilate the color channels. This helps to avoid filtering artifacts on the edges of the alpha channel if the alpha channel represents transparency. |
+| **Remove PSD Matte** | Indicates whether to apply special processing for Photoshop files that use transparency (blending color pixels with white). **Note**: This is only available for PSD files. |
+| **Non Power of 2** | Specifies how Unity scales the dimension size if the texture source file has a non-power of two (NPOT) dimension size. For more information on NPOT dimension sizes, see [Importing Textures](ImportingTextures.md).  * **None**: Texture dimension size stays the same. * **To nearest**: Scales the Texture to the nearest power-of-two dimension size at import time. For example, a 257x511 px Texture is scaled to 256x512 px. * **To larger**: Scales the Texture to the power-of-two dimension size of the largest dimension size value at import time. For example, a 257x511 px Texture is scaled to 512x512 px. * **To smaller**: Scales the Texture to the power-of-two dimension size of the smallest dimension size value at import time. For example, a 257x511 px Texture is scaled to 256x256 px. |
+| **Read/Write** | Indicates whether to access the texture data from **scripts** using [Texture2D.SetPixels](../ScriptReference/Texture2D.SetPixels.md), [Texture2D.GetPixels](../ScriptReference/Texture2D.GetPixels.md) and other [Texture](../ScriptReference/Texture.md) methods. Internally, Unity uses a copy of the Texture data for script access, which doubles the amount of memory required for the Texture. This property is therefore disabled by default, and you should enable it only if you require script access. For more information, see [Texture.isReadable](../ScriptReference/Texture-isReadable.md). |
+| **Generate Mipmap** | Indicates whether to generate a [mipmap](texture-mipmaps-introduction.md) for this texture. |
+| **Mipmap Limit** | Disable this option to use all mipmap levels, regardless of the Mipmap Limit settings in the **Quality** menu. This property only appears if you set **Texture Shape** to **2D** or **2D Array**. Other texture shapes always use all mipmap levels. |
+| **Mipmap Limit Group** | Select the Mipmap Limit group this texture should be part of. The default option is **None (Use Global Mipmap Limit)**. This property only appears if you set **Texture Shape** to **2D** or **2D Array**. Other texture shapes always use all mipmap levels. |
+| **Mipmap Filtering** | Specifies the method Unity uses to filter mipmap levels and optimize image quality. This property is visible only when **Generate Mipmap** is enabled.  * **Box**: Makes mipmap levels smoother as they decrease in dimension size. * **Kaiser**: Runs a sharpening algorithm on mipmap levels as they decrease in dimension size. Use this option if your textures are too blurry when far away. The algorithm is of the Kaiser Window type. For more information, see [Wikipedia](https://en.wikipedia.org/wiki/Kaiser_window). |
+| **Preserve Coverage** | Indicates whether the alpha channel in generated mipmaps preserves coverage during the alpha text. For more information, see [TextureImporterSettings.mipMapsPreserveCoverage](../ScriptReference/TextureImporterSettings-mipMapsPreserveCoverage.md). This property is visible only when **Generate Mipmap** is enabled. |
+| **Alpha Cutoff** | The reference value that controls the mipmap coverage during the alpha test. This property is visible only when **Preserve Coverage** is enabled. |
+| **Replicate Border** | Indicates whether to stop colors bleeding out to the edge of the lower mipmap levels. This is useful for light cookies.  This property is visible only when **Generate Mipmap** is enabled. |
+| **Fadeout to Gray** | Indicates whether mipmap levels should fade to gray as the mipmap levels progress. This is useful for detail maps. The left-most scroll is the first mipmap level to begin fading out. The right-most scroll defines the mipmap level where the texture is completely grayed out. This property is visible only when **Generate Mipmap** is enabled. |
+| **Ignore PNG Gamma** | Indicates whether to ignore the gamma attribute in PNG files.  This option is only visible if the texture source file is a PNG. |
+| **Swizzle** | Specifies how to order the texture source file color channel data. |
+| **Wrap Mode** | Specifies how the texture behaves when it tiles.  * **Repeat**: Repeats the texture in tiles. * **Clamp**: Stretches the texture’s edges. * **Mirror**: Mirrors the texture at every integer boundary to create a repeating pattern. * **Mirror Once**: Mirrors the texture once, then clamps it to edge pixels. **Note**: Some mobile devices don’t support Mirror Once. In this case, Unity uses Mirror instead. * **Per-axis**: Provides options you can use to individually control how Unity wraps textures on the u-axis and v-axis. |
+| **Filter Mode** | Specifies how Unity filters the texture when the texture stretches during 3D transformations.  * **Point (no filter)**: The texture appears blocky up close. * **Bilinear**: The texture appears blurry up close. * **Trilinear**: Like **Bilinear**, but the texture also blurs between the different mipmap levels. |
+| ****Aniso Level**** | Controls the texture quality when you view the texture at a steep angle. Anisotropic filtering is good for floor and ground Textures but is resource intensive. For more information, see [Importing textures](ImportingTextures.md). |
+
+In addition, you can use the [Platform-specific overrides](class-TextureImporter.md#platform) panel to set default options and overrides for specific platforms.
