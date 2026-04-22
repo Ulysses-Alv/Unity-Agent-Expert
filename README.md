@@ -36,17 +36,16 @@ irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/script
 ### Examples
 
 ```bash
-# Preview what will be installed (Linux/macOS)
+# Linux/macOS
 curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --dry-run
-
-# Force reinstall all agents (Windows)
-irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex -ArgumentList "-Force"
-
-# Install with Claude models (Linux/macOS)
 curl -fsSL https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.sh | bash -s -- --provider claude
+```
 
-# Install with GPT models (Windows)
-irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 | iex -ArgumentList "-Provider gpt"
+```powershell
+# Windows PowerShell - parameters BEFORE the pipe
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 -DryRun | iex
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 -Force | iex
+irm https://raw.githubusercontent.com/Ulysses-Alv/Unity-Agent-Expert/main/scripts/install.ps1 -Provider gpt | iex
 ```
 
 ## Repository Structure
